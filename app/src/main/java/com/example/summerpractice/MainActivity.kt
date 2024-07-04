@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,9 +41,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
+
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import com.example.summerpractice.ui.theme.SummerPracticeTheme
 
 class MainActivity : ComponentActivity() {
@@ -48,14 +55,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SummerPracticeTheme {
-                Backgraund()
+                MainScreen(HeroList.conversationSample)
             }
         }
     }
 }
 
 @Composable
-fun Backgraund() {
+fun MainScreen(heroList: List<HeroCard>) {
     Box(Modifier.background(Color.Black))
     {
         Image(
@@ -68,7 +75,7 @@ fun Backgraund() {
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                painter = painterResource(R.drawable.logo),
+                painter = rememberAsyncImagePainter("https://iili.io/JMnuvbp.png"),
                 contentDescription = null,
                 alignment = Alignment.Center,
                 modifier = Modifier
@@ -85,14 +92,61 @@ fun Backgraund() {
                     fontWeight = FontWeight.Bold
                 )
             )
+            Scrolling(heroList)
+
+//            Image(
+//                painter = rememberAsyncImagePainter("https://i.pinimg.com/originals/01/9d/59/019d59040b067a42b9412f47b424d202.png"),
+//                contentDescription = null,
+//                alignment = Alignment.Center,
+//                modifier = Modifier
+//                    .padding(vertical = 40.dp, horizontal = 0.dp)
+//                    .size(350.dp)
+////                    .width(800.dp)
+////                    .height(1000.dp)
+//
+//            )
+        }
+    }
+}
+
+@Composable
+fun Scrolling(heroCard: List<HeroCard>){
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(40.dp),
+        contentPadding = PaddingValues(horizontal = 60.dp)){
+        items(heroCard){
+                heroCard ->
+        Box() {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(
+                    painter = rememberAsyncImagePainter(heroCard.url),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(vertical = 20.dp, horizontal = 0.dp)
+                        .height(365.dp)
+                        .width(250.dp)
+//                        .size(300.dp)
+                )
+                Text(
+                    text = heroCard.name,
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    ),
+//                    modifier = Modifier
+//                        .padding(vertical = 100.dp)
+
+                )
+            }
+            }
         }
     }
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Backgraund()
-
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    Backgraund()
+//
+//}
