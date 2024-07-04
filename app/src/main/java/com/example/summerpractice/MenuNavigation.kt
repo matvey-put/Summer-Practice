@@ -1,8 +1,7 @@
 package com.example.summerpractice
 
-
-import android.graphics.drawable.Icon
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -29,15 +28,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 
@@ -57,73 +51,35 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.summerpractice.ui.theme.SummerPracticeTheme
-import com.example.summerpractice.MenuNavigation
-
 
 @Composable
-fun HeroScreen(heroCard: HeroCard, navController: NavController){
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(heroCard.heroColor)
-    ){
-
-        IconButton(onClick = { navController.navigate("main menu") }) {
-            Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = "Back",
-                modifier = Modifier
-                    .padding(horizontal =6.dp , vertical = 5.dp)
-            )
+fun MenuNavigation(){
+    val navController = rememberNavController()
+    NavHost(navController= navController, startDestination = "main menu"){
+        composable("main menu"){
+            MainScreen(heroList =HeroList.conversationSample , navController)
         }
+        composable("Wolverine"){
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painter = rememberAsyncImagePainter(heroCard.url),
-                contentDescription = null,
-                modifier = Modifier
-                    .width(300.dp)
-                    .height(450.dp)
-            )
-            Text(
-                text = heroCard.name,
-                style = TextStyle(
-                        fontSize = 30.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Cursive
-                ),
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = heroCard.info,
-                style = TextStyle(
-                    fontSize = 23.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Cursive
-                ),
-                modifier = Modifier
-                    .padding(horizontal = 6.dp)
-            )
+
+            HeroScreen(heroCard = HeroList.conversationSample[0], navController)
+        }
+        composable("Thor"){
+            HeroScreen(heroCard = HeroList.conversationSample[1], navController)
+        }
+        composable("Hulk"){
+            HeroScreen(heroCard = HeroList.conversationSample[2], navController)
+        }
+        composable("Spider man"){
+            HeroScreen(heroCard = HeroList.conversationSample[3], navController)
         }
     }
 }
-
-
-
-

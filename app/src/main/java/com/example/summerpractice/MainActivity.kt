@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,6 +53,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
@@ -64,14 +71,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SummerPracticeTheme {
-                MainScreen(HeroList.conversationSample)
+                MenuNavigation()
             }
         }
     }
 }
 
 @Composable
-fun MainScreen(heroList: List<HeroCard>) {
+fun MainScreen(heroList: List<HeroCard>, navController: NavController) {
     Box(Modifier.background(Color.Black))
     {
         Image(
@@ -102,13 +109,13 @@ fun MainScreen(heroList: List<HeroCard>) {
                     fontFamily = FontFamily.Cursive
                 )
             )
-            Scrolling(heroList)
+            Scrolling(heroList,navController)
         }
     }
 }
 
 @Composable
-fun Scrolling(heroCard: List<HeroCard>){
+fun Scrolling(heroCard: List<HeroCard>,navController: NavController){
     
     val lazyListState = rememberLazyListState()
     val snapBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
@@ -123,7 +130,9 @@ fun Scrolling(heroCard: List<HeroCard>){
         Box() {
             Surface(
                 color = heroCard.heroColor,
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier
+                    .clickable{navController.navigate(heroCard.name)}
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(

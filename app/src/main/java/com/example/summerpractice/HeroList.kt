@@ -1,7 +1,6 @@
 package com.example.summerpractice
 import androidx.compose.ui.graphics.Color
-//https://i.pinimg.com/originals/74/2d/64/742d649b06da5d12fc0c8c9bda7f3df3.png
-//https://i.pinimg.com/originals/6c/4a/0f/6c4a0f2a1a79c731d20ca8fad369f71e.png
+
 object HeroList {  val conversationSample = listOf(
     HeroCard(
         "https://pngimg.com/uploads/wolverine/wolverine_PNG45.png",
