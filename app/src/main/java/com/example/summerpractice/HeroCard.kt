@@ -1,3 +1,8 @@
 package com.example.summerpractice
 
-data class HeroCard(val url: String, val name: String, val info: String)
+import androidx.compose.ui.graphics.Color
+
+data class HeroCard(val url: String,
+                    val name: String,
+                    val info: String,
+                    val heroColor: Color)
