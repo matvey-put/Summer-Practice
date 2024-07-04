@@ -93,24 +93,13 @@ fun MainScreen(heroList: List<HeroCard>) {
                 )
             )
             Scrolling(heroList)
-
-//            Image(
-//                painter = rememberAsyncImagePainter("https://i.pinimg.com/originals/01/9d/59/019d59040b067a42b9412f47b424d202.png"),
-//                contentDescription = null,
-//                alignment = Alignment.Center,
-//                modifier = Modifier
-//                    .padding(vertical = 40.dp, horizontal = 0.dp)
-//                    .size(350.dp)
-////                    .width(800.dp)
-////                    .height(1000.dp)
-//
-//            )
         }
     }
 }
 
 @Composable
 fun Scrolling(heroCard: List<HeroCard>){
+
     LazyRow(horizontalArrangement = Arrangement.spacedBy(40.dp),
         contentPadding = PaddingValues(horizontal = 60.dp)){
         items(heroCard){
@@ -124,7 +113,6 @@ fun Scrolling(heroCard: List<HeroCard>){
                         .padding(vertical = 20.dp, horizontal = 0.dp)
                         .height(365.dp)
                         .width(250.dp)
-//                        .size(300.dp)
                 )
                 Text(
                     text = heroCard.name,
@@ -133,8 +121,6 @@ fun Scrolling(heroCard: List<HeroCard>){
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     ),
-//                    modifier = Modifier
-//                        .padding(vertical = 100.dp)
 
                 )
             }
